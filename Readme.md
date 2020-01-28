@@ -1,0 +1,2 @@
+Pour lancer le projet : 
+- aller sur oogle Chrome, application, Web Server, choose Folder (dossier ou tu as récupérer le clone de ce projet) => Clique sur l'URL proposé exemple: http://127.0.0.1:8887 par default la page index.html sera loader en premier.
