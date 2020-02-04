@@ -1,6 +1,8 @@
+
 (function (d3) {
   'use strict';
-
+  var modelsNeufs=new Array();
+  var modelsOccasions = new Array();
   const titleText = 'Top 10 Most Populous Countries';
   const xAxisLabelText = 'Population';
 
@@ -10,8 +12,10 @@
   const height = +svg.attr('height');
 
   const render = data => {
+    console.log(data);
     const xValue = d => d['population'];
-    const yValue = d => d.country;
+    const yValue = d => d.maVoiture;
+    //console.log("yValue", data.maVoiture);
     const margin = { top: 50, right: 40, bottom: 77, left: 180 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -65,10 +69,18 @@
         .text(titleText);
   };
 
-  d3.csv('data.csv').then(data => {
+  d3.csv('file.csv').then(data => {
     data.forEach(d => {
-      d.population = +d.population * 1000;
+
+       // We read the key,1st, 2nd and 3rd rows
+       var maVoiture = Object();
+       maVoiture.marque=d.marque;
+       maVoiture.nom =d.nom;
+       maVoiture.occasion=d.occasion;
+       maVoiture.model = d.marque+' '+d.nom;
+      //console.log("object :", maVoiture)
     });
+
     render(data);
   });
 
