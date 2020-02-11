@@ -9,8 +9,8 @@ import {
     format
   } from 'd3';
   
-  const titleText = 'Top 10 Most Populous Countries';
-  const xAxisLabelText = 'Population';
+  const titleText = 'Modèles de véhicule les plus achetés';
+  const xAxisLabelText = 'Nombre de Vente';
   
   const svg = select('svg');
   
@@ -18,8 +18,43 @@ import {
   const height = +svg.attr('height');
   
   const render = data => {
-    const xValue = d => d['population'];
-    const yValue = d => d.country;
+    var modelsNeufs=new Array();
+    var modelsOccasions = new Array();
+    for (var i = 1; i <  Object.keys(data).length -1 ; i++) {
+      if(modelsNeufs != null){
+        if(modelsNeufs.find( fruit => (fruit.nom === data[i].nom))){
+          var x = modelsNeufs.findIndex(fruit => (fruit.nom === data[i].nom));
+          modelsNeufs[x].nombre +=1;
+        }
+        else {
+          var maVoiture = Object();
+          maVoiture.marque=data[i].marque;
+          maVoiture.nom =data[i].nom;
+          maVoiture.occasion=data[i].occasion;
+          maVoiture.model = data[i].marque +' '+data[i].nom;
+          maVoiture.nombre = 1;
+          if(data[i].occasion == 'false'){
+              modelsNeufs.push(maVoiture);
+          }
+        }
+        if(modelsOccasions.find( fruit => (fruit.nom === data[i].nom))){
+          var x = modelsOccasions.findIndex(fruit => (fruit.nom === data[i].nom));
+          modelsOccasions[x].nombre +=1;
+        }
+        else {
+          var maVoiture = Object();
+          maVoiture.marque=data[i].marque;
+          maVoiture.nom =data[i].nom;
+          maVoiture.occasion=data[i].occasion;
+          maVoiture.model = data[i].marque +' '+data[i].nom;
+          maVoiture.nombre = 1;
+          if(data[i].occasion == 'true'){
+            modelsOccasions.push(maVoiture);
+          }
+        }
+      }
+    }
+    var max = d3.max(modelsNeufs, function(d) { return +d.nombre} );
     const margin = { top: 50, right: 40, bottom: 77, left: 180 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -73,10 +108,6 @@ import {
         .text(titleText);
   };
   
-  csv('data.csv').then(data => {
-    data.forEach(d => {
-      d.population = +d.population * 1000;
-    });
+  csv('file.csv').then(data => {
     render(data);
-    console.log(data)
   });
