@@ -1,14 +1,15 @@
 body {
   margin: 0px;
   overflow: hidden;
+
 }
 
+div {
+  position: relative;
+  width: 100%;
+  overflow-y: scroll;
+}
 rect {
   fill: steelblue;
 }
 
-.axis path, .axis line {
-  fill: none;
-  stroke: black;
-  shape-rendering: crispEdges;  /* Round any decimal pixels so it'll render nicely */
-}

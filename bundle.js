@@ -1,7 +1,7 @@
 
 (function (d3) {
   'use strict';
-  const titleText = 'Modèles de véhicule les plus achetés';
+  const titleText = 'Modèles de véhicule Neuves les plus achetés';
   const xAxisLabelText = 'Nombre de Vente';
   const yAxisLabelText = 'Modèles de véhicule';
   const svg = d3.select('svg');
@@ -10,7 +10,7 @@
   const height = +svg.attr('height');
 
   const render = data => {
-    console.log("data", data)
+      svg.selectAll("*").remove();
     var modelsNeufs=new Array();
     var modelsOccasions = new Array();
     var allModels = new Array();
@@ -51,9 +51,6 @@
       }
     }
 
-    console.log("modelsOccasions : ",modelsOccasions );
-    console.log("modelsNeufs : ",modelsNeufs );
-    console.log("allModels : ",allModels );
     var max = d3.max(modelsNeufs, function(d) { return +d.nombre} );
     modelsNeufs.forEach(x => {
       const xValue = x => x.nombre;
@@ -62,14 +59,14 @@
       const innerWidth = width - margin.left - margin.right;
       const innerHeight = height - margin.top - margin.bottom;
       
-      const xScale = d3.scaleLinear()
-        .domain([0, max])
-        .range([0, innerWidth]);
       
       const yScale = d3.scaleBand()
         .domain(modelsNeufs.map(yValue))
         .range([0, innerHeight])
         .padding(0.1);
+      const xScale = d3.scaleLinear()
+        .domain([0, max+1])
+        .range([0, innerWidth]);
       
       const g = svg.append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
@@ -109,34 +106,13 @@
           .attr('class', 'title')
           .attr('y', -10)
           .text(titleText);
-
-      function handleMouseOver(d, i) {  // Add interactivity
-
-            // Use D3 to select element, change color and size
-            d3.select(this).attr({
-              fill: "orange",
-              r: radius * 2
-            });
-
-            // Specify where to put label of text
-            svg.append("text").attr({
-               id: "t" + d.x + "-" + d.y + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
-                x: function() { return xScale(d.x) - 30; },
-                y: function() { return yScale(d.y) - 15; }
-            })
-            .text(function() {
-              return [d.x, d.y];  // Value of the text
-            });
-          }
-   
     }
 
     );
     
   };
 
-  d3.csv('file.csv').then(data => {
-    
+  d3.csv('file.csv').then(data => {    
     render(data);
   });
 

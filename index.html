@@ -9,7 +9,38 @@
     <script src="https://d3js.org/d3.v5.js"></script>
 </head>
   <body>
-    <svg width="960" height="500"></svg>
-    <script src="bundle.js"></script>
+    <div>
+      <select name="graphe" id="graphe">
+        <option value="grapheNeuf">graphe Voitures Neuves</option>
+        <option value="grapheOccasion">graphe Voitures Occasions</option>
+        <option value="grapheAll">graphe Toutes Voitures</option>
+      </select>
+    </div>
+    
+    <svg width="800" height="700"></svg>
+   
+   
+    <script>
+      var select = document.querySelector('select');
+      select.onchange = function() {
+
+        function include(file) {
+          var oScript =  document.createElement("script");
+          oScript.src = file;
+          oScript.type = "text/javascript";
+          document.body.appendChild(oScript);
+        }
+        if(select.selectedIndex == 0){
+        // On l'utilise :
+          include("bundle.js");
+        }
+        else if(select.selectedIndex == 1){
+          include("occasion.js");
+        }
+        else{
+          include("allModel.js")
+        }
+      } 
+      </script>
   </body>
 </html>
