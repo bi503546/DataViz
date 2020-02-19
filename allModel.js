@@ -22,8 +22,10 @@
             var maVoiture = Object();
             maVoiture.marque=data[i].marque;
             maVoiture.nom =data[i].nom;
-            maVoiture.occasion=data[i].occasion;
             maVoiture.model = data[i].marque +' '+data[i].nom;
+            maVoiture.occasion=data[i].occasion;
+            maVoiture.nbPorte = data[i].nbPortes;
+            maVoiture.nbPlace = data[i].nbPlaces;
             maVoiture.nombre = 1;
             allModels.push(maVoiture);
             }
@@ -88,8 +90,18 @@
             .on("mouseover", function(d) {
               div.transition()        
                   .duration(200)      
-                  .style("opacity", .9);
-              div.html("Nombre : "+ d.nombre + ", nb de Place :"+ d.occasion)
+                  .style("opacity", .9)
+                  .style("background", "lightsteelblue")
+                  .style("position", "absolute")
+                  .style("text-align", "center")
+                  .style("width", 150 +"px")
+                  .style("height", 60+"px")
+                  .style("padding", 2+"px")
+                  .style("font", 16+"px sans-serif")
+                  .style("border", 0+"px")
+                  .style("border-radius", 8+"px")
+                  .style("overflow","hidden");
+              div.html("Nombre : "+ d.nombre + "<br>nb de Place :"+ d.nbPlace + "<br>nb de Porte :" + d.nbPorte)
                   .style("left", (d3.event.pageX + 10) + "px")     
                   .style("top", (d3.event.pageY - 50) + "px");
           })

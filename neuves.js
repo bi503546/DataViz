@@ -13,16 +13,18 @@
     var modelsNeufs=new Array();
     for (var i = 1; i <  Object.keys(data).length -1 ; i++) {
       if(modelsNeufs != null){
-        if(modelsNeufs.find( fruit => (fruit.nom === data[i].nom))){
-          var x = modelsNeufs.findIndex(fruit => (fruit.nom === data[i].nom));
+        if(modelsNeufs.find( car => (car.nom === data[i].nom))){
+          var x = modelsNeufs.findIndex(car => (car.nom === data[i].nom));
           modelsNeufs[x].nombre +=1;
         }
         else {
           var maVoiture = Object();
           maVoiture.marque=data[i].marque;
           maVoiture.nom =data[i].nom;
-          maVoiture.occasion=data[i].occasion;
           maVoiture.model = data[i].marque +' '+data[i].nom;
+          maVoiture.occasion=data[i].occasion;
+          maVoiture.nbPorte = data[i].nbPortes;
+          maVoiture.nbPlace = data[i].nbPlaces;
           maVoiture.nombre = 1;
           if(data[i].occasion == 'true'){
             modelsNeufs.push(maVoiture);
@@ -40,7 +42,8 @@
       const margin = { top: 50, right: 40, bottom: 77, left: 180 };
       const innerWidth = width - margin.left - margin.right;
       const innerHeight = height - margin.top - margin.bottom;
-      
+      const div = d3.select("body").append("div")
+        .attr("class", "tooltip");
       
       const yScale = d3.scaleBand()
         .domain(modelsNeufs.map(yValue))
@@ -84,8 +87,45 @@
         .enter().append('rect')
           .attr('y', d => yScale(yValue(d)))
           .attr('width', d => xScale(xValue(d)))
-          .attr('height', yScale.bandwidth());
-      
+          .attr('height', yScale.bandwidth())
+          .on("mouseover", function(d) {
+            div.transition()        
+            .duration(200)      
+            .style("opacity", .9)
+            .style("background", "lightsteelblue")
+            .style("position", "absolute")
+            .style("text-align", "center")
+            .style("width", 150 +"px")
+            .style("height", 60+"px")
+            .style("padding", 2+"px")
+            .style("font", 16+"px sans-serif")
+            .style("border", 0+"px")
+            .style("border-radius", 8+"px")
+            .style("overflow","hidden");
+            div.html("Nombre : "+ d.nombre + "<br>nb de Place :"+ d.nbPlace + "<br>nb de Porte :" + d.nbPorte)
+                .style("left", (d3.event.pageX + 10) + "px")
+                .style("top", (d3.event.pageY - 50) + "px");
+        })
+        .on("mouseout", function(d) {
+            div.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
+          
+
+
+      /**
+       * position: absolute;			
+    text-align: center;			
+    width: 60px;					
+    height: 60px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;
+       */
       g.append('text')
           .attr('class', 'title')
           .attr('y', -10)
