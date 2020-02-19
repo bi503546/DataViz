@@ -11,13 +11,16 @@
   <body>
     <div>
       <select name="graphe" id="graphe">
-        <option value="grapheNeuf">graphe Voitures Neuves</option>
-        <option value="grapheOccasion">graphe Voitures Occasions</option>
-        <option value="grapheAll">graphe Toutes Voitures</option>
+        <option value="">--Please choose an option--</option>
+        <option value="grapheNeuf">Les voitures neuves</option>
+        <option value="grapheOccasion">Les voitures d'occasions</option>
+        <option value="grapheAll">Toutes les voitures</option>
       </select>
     </div>
+    <div class= "Svg_div">
+      <svg width="800" height="700"></svg>
+    </div>
     
-    <svg width="800" height="700"></svg>
    
    
     <script>
@@ -30,15 +33,18 @@
           oScript.type = "text/javascript";
           document.body.appendChild(oScript);
         }
-        if(select.selectedIndex == 0){
+        if(select.selectedIndex == 1){
         // On l'utilise :
-          include("bundle.js");
+          include("neuves.js");
         }
-        else if(select.selectedIndex == 1){
+        else if(select.selectedIndex == 2){
           include("occasion.js");
         }
-        else{
+        else if(select.selectedIndex == 3){
           include("allModel.js")
+        }
+        else {
+          alert("Please choose an option !");
         }
       } 
       </script>

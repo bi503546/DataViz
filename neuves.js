@@ -10,10 +10,7 @@
   const height = +svg.attr('height');
 
   const render = data => {
-      svg.selectAll("*").remove();
     var modelsNeufs=new Array();
-    var modelsOccasions = new Array();
-    var allModels = new Array();
     for (var i = 1; i <  Object.keys(data).length -1 ; i++) {
       if(modelsNeufs != null){
         if(modelsNeufs.find( fruit => (fruit.nom === data[i].nom))){
@@ -27,31 +24,16 @@
           maVoiture.occasion=data[i].occasion;
           maVoiture.model = data[i].marque +' '+data[i].nom;
           maVoiture.nombre = 1;
-          if(data[i].occasion == 'false'){
-              modelsNeufs.push(maVoiture);
-              allModels.push(maVoiture);
-          }
-        }
-        if(modelsOccasions.find( fruit => (fruit.nom === data[i].nom))){
-          var x = modelsOccasions.findIndex(fruit => (fruit.nom === data[i].nom));
-          modelsOccasions[x].nombre +=1;
-        }
-        else {
-          var maVoiture = Object();
-          maVoiture.marque=data[i].marque;
-          maVoiture.nom =data[i].nom;
-          maVoiture.occasion=data[i].occasion;
-          maVoiture.model = data[i].marque +' '+data[i].nom;
-          maVoiture.nombre = 1;
           if(data[i].occasion == 'true'){
-            modelsOccasions.push(maVoiture);
-            allModels.push(maVoiture);
+            modelsNeufs.push(maVoiture);
           }
         }
       }
     }
 
+
     var max = d3.max(modelsNeufs, function(d) { return +d.nombre} );
+    svg.selectAll("*").remove();
     modelsNeufs.forEach(x => {
       const xValue = x => x.nombre;
       const yValue = x => x.model;
@@ -81,9 +63,11 @@
       
       g.append('g')
         .call(d3.axisLeft(yScale))
-        .selectAll('.domain, .tick line')
-          .remove();
-      
+        .selectAll("text")	
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-35)");
       const xAxisG = g.append('g').call(xAxis)
         .attr('transform', `translate(0,${innerHeight})`);
       

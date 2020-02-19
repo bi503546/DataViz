@@ -13,3 +13,29 @@ rect {
   fill: steelblue;
 }
 
+.Svg_div{
+  position:absolute;
+  left: 30%;
+  top: 30%;
+  margin-left: -100px; /* Cette valeur doit être la moitié négative de la valeur du width */
+  margin-top: -100px;
+}
+.title{
+  font-family: Georgia, serif;
+  font-size: 30px;
+  padding: 5px;
+}
+.axis-label{
+  font-family: serif;
+  font-size: 15px;
+  padding: 5px;
+}
+.tick{
+  font-family: serif;
+  font-size: 20px;
+}
+.bar{
+  padding: 20px;
+  border-color: black;
+}
+

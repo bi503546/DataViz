@@ -4,8 +4,7 @@
     const titleText = 'Modèles de véhicule occasions les plus achetés';
     const xAxisLabelText = 'Nombre de Vente par modèle ';
     const yAxisLabelText = 'Modèles de véhicule';
-    const svg = d3.select('svg');
-  
+    const svg = d3.select('svg');  
     const width = +svg.attr('width');
     const height = +svg.attr('height');
   

@@ -29,9 +29,10 @@
             }
         }
     }
+   
       var max = d3.max(allModels, function(d) { return +d.nombre} );
       allModels.forEach(x => {
-        
+        console.log("allmodel.nombre de "+ x.model + " : "+ x.nombre);
         const xValue = x => x.nombre;
         const yValue = x => x.model;
         const margin = { top: 50, right: 40, bottom: 77, left: 180 };
@@ -39,8 +40,9 @@
         const innerHeight = height - margin.top - margin.bottom;
     
         const div = d3.select("body").append("div")
-    .attr("class", "tooltip")         
-    .style("opacity", 0);
+        .attr("class", "tooltip")         
+        .style("opacity", .9);
+
         const xScale = d3.scaleLinear()
           .domain([0, max])
           .range([0, innerWidth]);
@@ -75,7 +77,6 @@
             .attr('class', 'axis-label')
             .attr('y', 65)
             .attr('x', innerWidth / 2)
-            .attr('fill', 'black')
             .text(xAxisLabelText);
         
         g.selectAll('rect').data(allModels)
@@ -88,7 +89,7 @@
               div.transition()        
                   .duration(200)      
                   .style("opacity", .9);
-              div.html("Population : " + d.nombre)
+              div.html("Nombre : "+ d.nombre + ", nb de Place :"+ d.occasion)
                   .style("left", (d3.event.pageX + 10) + "px")     
                   .style("top", (d3.event.pageY - 50) + "px");
           })
