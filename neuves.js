@@ -33,7 +33,6 @@
       }
     }
 
-
     var max = d3.max(modelsNeufs, function(d) { return +d.nombre} );
     svg.selectAll("*").remove();
     modelsNeufs.forEach(x => {
@@ -50,7 +49,7 @@
         .range([0, innerHeight])
         .padding(0.1);
       const xScale = d3.scaleLinear()
-        .domain([0, max+1])
+        .domain([0, max + 10])
         .range([0, innerWidth]);
       
       const g = svg.append('g')
@@ -67,10 +66,8 @@
       g.append('g')
         .call(d3.axisLeft(yScale))
         .selectAll("text")	
-        .style("text-anchor", "end")
-        .attr("dx", "-.8em")
-        .attr("dy", ".15em")
-        .attr("transform", "rotate(-35)");
+        .attr("text-anchor", "end")
+        .style("font-size", "20px");
       const xAxisG = g.append('g').call(xAxis)
         .attr('transform', `translate(0,${innerHeight})`);
       
@@ -112,20 +109,6 @@
                 .style("opacity", 0);
         });
           
-
-
-      /**
-       * position: absolute;			
-    text-align: center;			
-    width: 60px;					
-    height: 60px;					
-    padding: 2px;				
-    font: 12px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;
-       */
       g.append('text')
           .attr('class', 'title')
           .attr('y', -10)

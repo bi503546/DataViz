@@ -7,46 +7,31 @@
     <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3.v5.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
   <body>
-    <div>
-      <select name="graphe" id="graphe">
-        <option value="">--Please choose an option--</option>
-        <option value="grapheNeuf">Les voitures neuves</option>
-        <option value="grapheOccasion">Les voitures d'occasions</option>
-        <option value="grapheAll">Toutes les voitures</option>
-      </select>
-    </div>
-    <div class= "Svg_div">
-      <svg width="800" height="700"></svg>
-    </div>
-    
-   
-   
-    <script>
-      var select = document.querySelector('select');
-      select.onchange = function() {
-
-        function include(file) {
-          var oScript =  document.createElement("script");
-          oScript.src = file;
-          oScript.type = "text/javascript";
-          document.body.appendChild(oScript);
-        }
-        if(select.selectedIndex == 1){
-        // On l'utilise :
-          include("neuves.js");
-        }
-        else if(select.selectedIndex == 2){
-          include("occasion.js");
-        }
-        else if(select.selectedIndex == 3){
-          include("allModel.js")
-        }
-        else {
-          alert("Please choose an option !");
-        }
-      } 
-      </script>
+    <div class= "row" no-gutters id="global">
+      <div class ="col-sm-3" id="gauche">
+        <div class= "row">
+          <label>Etats de véhicules Neufs / Occasions </label>
+          <select name="graphe" id="graphe">
+            <option value="" id="1" >--Please choose an option--</option>
+            <option value="grapheNeuf" id="2">Les voitures neuves</option>
+            <option value="grapheOccasion" id="3">Les voitures d'occasions</option>
+            <option value="grapheAll" id="4">Toutes les voitures</option>
+          </select>
+        </div>
+        <div class= "row"> 
+          <input type="checkbox" id="trois"> Trois Portes
+          <input type="checkbox" id="cinq"> Cinq Portes
+        </div>
+      </div>
+      <div class ="col-sm-9" id="droite">
+        <div class= "Svg_div">
+          <svg width="800" height="700"></svg>
+        </div>
+        <script src="allModel.js"></script>
+      </div>
+    </div>    
   </body>
 </html>

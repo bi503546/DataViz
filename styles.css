@@ -1,7 +1,10 @@
 body {
   margin: 0px;
   overflow: hidden;
+}
 
+html, body {
+	height: 100%;
 }
 
 div {
@@ -10,9 +13,35 @@ div {
   overflow-y: scroll;
 }
 rect {
-  fill: steelblue;
+  fill: DodgerBlue;
 }
 
+#global{
+  width: 100%;
+  height: 100%;
+}
+
+#gauche {
+	width: 100%;
+	height: 100%;
+	float: left;
+}
+
+#droite {
+	width: 100%;
+	height: 100%;
+	float: left;
+}
+
+#graphe{
+  padding: 6px;
+  margin: 5px;
+}
+
+.filtrePorte{
+  padding: 6px;
+  margin: 5px;
+}
 .Svg_div{
   position:absolute;
   left: 30%;
@@ -31,6 +60,14 @@ rect {
   padding: 5px;
 }
 
+.select {
+  cursor:pointer;
+  display:inline-block;
+  position:relative;
+  font:normal 11px/22px Arial, Sans-Serif;
+  color:black;
+  border:1px solid #ccc;
+}
 .tick{
   font-family: serif;
   font-size: 20px;
