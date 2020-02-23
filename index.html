@@ -8,12 +8,19 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3.v5.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
+    
+  </head>
   <body>
+    <div class="row entete">
+      <div class="col">
+        <h1>Le nombre d'achat selon l'état de voiture</h1>
+      </div>
+    </div>
     <div class= "row" no-gutters id="global">
-      <div class ="col-sm-3" id="gauche">
+      <div class ="col-sm-3" id="gauche">        
+        <h2>Filtres</h2>
         <div class= "row">
-          <label>Etats de véhicules Neufs / Occasions </label>
+          <h3>Etats de véhicules Neufs / Occasions </h3>
           <select name="graphe" id="graphe">
             <option value="" id="1" >--Please choose an option--</option>
             <option value="grapheNeuf" id="2">Les voitures neuves</option>
@@ -21,13 +28,30 @@
             <option value="grapheAll" id="4">Toutes les voitures</option>
           </select>
         </div>
-        <div class= "row"> 
-          <input type="checkbox" id="trois"> Trois Portes
-          <input type="checkbox" id="cinq"> Cinq Portes
+        <div class="row">           
+          <h3>Nombre de Portes </h3>
+          <label class="containerL"> Trois Portes (3)
+            <input type="checkbox" id="trois">
+            <span class="checkmark"></span> 
+          </label>
+          <label class="containerL"> Cinq Portes (5)
+            <input type="checkbox" id="cinq"> 
+            <span class="checkmark"></span>
+          </label>  
+        </div>
+        <div class="row">           
+          <h3>Longeur de Voiture </h3>
+          <div>
+            <input type="radio" name="Longeur" id="petite" value="courte"> courte<br>
+            <input type="radio" name="Longeur" id="moyenne" value="moyenne"> moyenne<br>
+            <input type="radio" name="Longeur" id="longue" value="Longue"> Longue<br>
+            <input type="radio" name="Longeur" id="t_longue" value="très Longue"> très Longue<br>
+
+          </div>
         </div>
       </div>
       <div class ="col-sm-9" id="droite">
-        <div class= "Svg_div">
+        <div class="Svg_div">
           <svg width="800" height="700"></svg>
         </div>
         <script src="allModel.js"></script>

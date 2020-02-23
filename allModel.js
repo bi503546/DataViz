@@ -1,12 +1,11 @@
 
 (function (d3) {
     'use strict';
-    const xAxisLabelText = 'Nombre de Vente par modèle';
-    const svg = d3.select('svg');
-  
+    const svg = d3.select('svg');  
     const width = +svg.attr('width');
     const height = +svg.attr('height');
-    
+    const xAxisLabelText = 'Nombre de Vente par modèle';
+
 
     const render = data => {
       svg.selectAll("*").remove();
@@ -27,6 +26,7 @@
             maVoiture.occasion = data[i].occasion;
             maVoiture.nbPorte = data[i].nbPortes;
             maVoiture.nbPlace = data[i].nbPlaces;
+            maVoiture.longueur = data[i].longueur;
             maVoiture.nombre = 1;
             allModels.push(maVoiture);
             if(data[i].occasion == 'true'){
@@ -61,10 +61,15 @@
     
     d3.select("#trois").on("change",update);
     d3.select("#cinq").on("change",update);
+    d3.select("#petite").on("change",update);
+    d3.select("#moyenne").on("change",update);
+    d3.select("#longue").on("change",update);
+    d3.select("#t_longue").on("change",update);
 			update();
 			
       
       var filteredData = new Array();
+      var taille = new Array();
     	function update(){
         var newData = new Array();
         var titleText = "";
@@ -85,7 +90,7 @@
           newData = allModels;
         }
         else {
-          alert("choisie un graphe");
+          alert("Choisissez un etat de voiture !! ");
         }
         if(d3.select("#trois").property("checked")){
           filteredData = newData.filter(function(d,i){return d.nbPorte == "3";});
@@ -95,10 +100,28 @@
             for(let i = 0; i < cinq.length; i++ ){
               filteredData.push(cinq[i]);
             }
-            console.log("filteredData => ", filteredData)
+            if(d3.select("#petite").property("checked")){
+              taille= filteredData.filter(function(d,i){return d.longueur =="courte"})
+              console.log("taille =>", taille);
+              filteredData= taille;
+            }
+            else if(d3.select("#moyenne").property("checked")){
+              let moyenne= filteredData.filter(function(d,i){return d.longueur =="moyenne"})
+              filteredData= moyenne;
+
+            }
+            else if(d3.select("#longue").property("checked")){
+              let longue= filteredData.filter(function(d,i){return d.longueur =="longue"})
+              filteredData= longue;
+            }
+            else if(d3.select("#t_longue").property("checked")){
+              let t_longue= filteredData.filter(function(d,i){return d.longueur.length >9 })
+              filteredData= t_longue;
+            }
+            
             svg.selectAll("*").remove();
           }
-        } 
+        }         
         else if(d3.select("#cinq").property("checked")){
           filteredData = newData.filter(function(d,i){return d.nbPorte == "5";});
           svg.selectAll("*").remove();
@@ -110,11 +133,125 @@
             console.log("filteredData => ", filteredData)
             svg.selectAll("*").remove();
           }
-        }else {
-            filteredData = newData;	
-            console.log("new Date sans checkBox=> ", newData);
-            svg.selectAll("*").remove();
+        }
+        else {
+          filteredData = newData;	
+          console.log("new Date sans checkBox=> ", newData);
+          svg.selectAll("*").remove();
         }	
+        if(d3.select("#petite").property("checked")){
+          filteredData = newData.filter(function(d,i){return d.longueur == "courte";});
+          if(d3.select("#trois").property("checked")){
+            let trois = filteredData.filter(function(d,i){return d.nbPorte == "3";});
+            filteredData = trois;
+            if(d3.select("#cinq").property("checked")){
+              let cinq = newData.filter(function(d,i){return (d.nbPorte == "5") &&(d.longueur == "courte");});
+              for(let i = 0; i < cinq.length; i++ ){
+                filteredData.push(cinq[i]);
+              }
+            }
+          }
+          else if(d3.select("#cinq").property("checked")){
+            let cinq = filteredData.filter(function(d,i){return d.nbPorte == "5";});
+            filteredData = cinq;   
+            if(d3.select("#trois").property("checked")){
+              let trois = newData.filter(function(d,i){return d.nbPorte == "3" &&(d.longueur == "courte");});
+              for(let i = 0; i < trois.length; i++ ){
+                filteredData.push(trois[i]);
+              }
+            }         
+          }
+          else {
+            filteredData = newData.filter(function(d,i){return d.longueur == "courte";});
+          }
+          svg.selectAll("*").remove();
+        }
+        else if(d3.select("#moyenne").property("checked")){
+          filteredData = newData.filter(function(d,i){return d.longueur == "moyenne";});
+          if(d3.select("#trois").property("checked")){
+            let trois = filteredData.filter(function(d,i){return d.nbPorte == "3";});
+            filteredData = trois;
+            if(d3.select("#cinq").property("checked")){
+              let cinq = newData.filter(function(d,i){return (d.nbPorte == "5") && (d.longueur == "moyenne");});
+              for(let i = 0; i < cinq.length; i++ ){
+                filteredData.push(cinq[i]);
+              }
+            }
+          }
+          else if(d3.select("#cinq").property("checked")){
+            let cinq = filteredData.filter(function(d,i){return d.nbPorte == "5";});
+            filteredData = cinq;   
+            if(d3.select("#trois").property("checked")){
+              let trois = newData.filter(function(d,i){return (d.nbPorte == "3") && (d.longueur == "moyenne");});
+              for(let i = 0; i < trois.length; i++ ){
+                filteredData.push(trois[i]);
+              }
+            }         
+          }
+          else {
+            filteredData = newData.filter(function(d,i){return d.longueur == "moyenne";});
+          }
+          svg.selectAll("*").remove();
+        }
+        else if(d3.select("#longue").property("checked")){
+          filteredData = newData.filter(function(d,i){return d.longueur == "longue";});
+          if(d3.select("#trois").property("checked")){
+            let trois = filteredData.filter(function(d,i){return d.nbPorte == "3";});
+            filteredData = trois;
+            if(d3.select("#cinq").property("checked")){
+              let cinq = newData.filter(function(d,i){return (d.nbPorte == "5") && (d.longueur == "longue");});
+              for(let i = 0; i < cinq.length; i++ ){
+                filteredData.push(cinq[i]);
+              }
+            }
+          }
+          else if(d3.select("#cinq").property("checked")){
+            let cinq = filteredData.filter(function(d,i){return d.nbPorte == "5";});
+            filteredData = cinq;   
+            if(d3.select("#trois").property("checked")){
+              let trois = newData.filter(function(d,i){return (d.nbPorte == "3") && (d.longueur == "longue");});
+              for(let i = 0; i < trois.length; i++ ){
+                filteredData.push(trois[i]);
+              }
+            }         
+          }
+          else {
+            filteredData = newData.filter(function(d,i){return d.longueur == "longue";});
+          }
+          svg.selectAll("*").remove();
+        }
+        else if(d3.select("#t_longue").property("checked")){
+          filteredData = newData.filter(function(d,i){return d.longueur.length > 9;});
+          if(d3.select("#trois").property("checked")){
+            let trois = filteredData.filter(function(d,i){return d.nbPorte == "3";});
+            filteredData = trois;
+            if(d3.select("#cinq").property("checked")){
+              let cinq = newData.filter(function(d,i){return (d.nbPorte == "5") && (d.longueur.length > 9);});
+              for(let i = 0; i < cinq.length; i++ ){
+                filteredData.push(cinq[i]);
+              }
+            }
+          }
+          else if(d3.select("#cinq").property("checked")){
+            let cinq = filteredData.filter(function(d,i){return d.nbPorte == "5";});
+            filteredData = cinq;   
+            if(d3.select("#trois").property("checked")){
+              let trois = newData.filter(function(d,i){return (d.nbPorte == "3") && (d.longueur.length > 9);});
+              for(let i = 0; i < trois.length; i++ ){
+                filteredData.push(trois[i]);
+              }
+            }         
+          }
+          else {
+            filteredData = newData.filter(function(d,i){return d.longueur.length > 9;});
+          }
+          svg.selectAll("*").remove();
+        }
+        else {
+          
+        }
+        
+        
         var max = d3.max(filteredData, function(d) { return +d.nombre} );
         filteredData.forEach(x => {
           const xValue = x => x.nombre;
@@ -160,7 +297,7 @@
           xAxisG.append('text')
               .attr('class', 'axis-label')
               .attr('y', 65)
-              .attr('x', innerWidth / 2)
+              .attr('x', innerHeight / 2)
               .text(xAxisLabelText);
           
           g.selectAll('rect').data(filteredData)
@@ -183,7 +320,9 @@
                     .style("border", 0+"px")
                     .style("border-radius", 8+"px")
                     .style("overflow","hidden");
-                div.html(d.model + "<br>occasion : "+ d.occasion +"<br>Nombre de Vente : "+ d.nombre + "<br>Nombre de Place :"+ d.nbPlace + "<br>Nombre de Porte :" + d.nbPorte)
+                div.html(d.model + "<br>occasion : "+ d.occasion +"<br>Nombre de Vente : "
+                + d.nombre + "<br>Nombre de Place :"+ d.nbPlace +
+                 "<br>Nombre de Porte :" + d.nbPorte +"<br>Taille : "+d.longueur)
                     .style("left", (d3.event.pageX + 10) + "px")     
                     .style("top", (d3.event.pageY - 50) + "px");
             })
@@ -199,12 +338,9 @@
               .text(titleText);
        
       });
-    
-    
-    }
+    }    
       
-      
-    }
+  }
     d3.csv('file.csv').then(data => {    
       render(data);
     });

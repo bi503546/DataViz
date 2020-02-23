@@ -1,7 +1,4 @@
-body {
-  margin: 0px;
-  overflow: hidden;
-}
+
 
 html, body {
 	height: 100%;
@@ -10,21 +7,100 @@ html, body {
 div {
   position: relative;
   width: 100%;
-  overflow-y: scroll;
 }
 rect {
   fill: DodgerBlue;
 }
+.entete{
+  height: 20%;
+  background-color: lightgrey;
+}
+header{
+  height: auto;
+  margin: 20px;
+  position: relative;
+  top: 5%;
+  left: 30%;
+}
 
+.titre{
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: 30px;
+  padding: 5px;
+  margin:20px;
+
+}
 #global{
   width: 100%;
   height: 100%;
 }
+.Svg_div{
+  
+  position: relative;
+  left: 5%;
+}
+.containerL {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.containerL input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.containerL:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.containerL input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.containerL input:checked ~ .checkmark:after {
+  display: block;
+}
+
 
 #gauche {
 	width: 100%;
 	height: 100%;
-	float: left;
+  float: left;  
+  padding: 70px;
+  background-color: lightslategray;
 }
 
 #droite {
@@ -36,28 +112,29 @@ rect {
 #graphe{
   padding: 6px;
   margin: 5px;
+
 }
 
 .filtrePorte{
   padding: 6px;
   margin: 5px;
 }
-.Svg_div{
-  position:absolute;
-  left: 30%;
-  top: 30%;
-  margin-left: -100px; /* Cette valeur doit être la moitié négative de la valeur du width */
-  margin-top: -100px;
-}
+
 .title{
   font-family: Georgia, serif;
-  font-size: 30px;
-  padding: 5px;
+  font-size: 20px;
+  padding: 2px;
+  margin: 5px;
+}
+
+#header{
+  position:absolute;
+  margin-left: -100px; /* Cette valeur doit être la moitié négative de la valeur du width */
+  margin-top: -100px;
 }
 .axis-label{
   font-family: serif;
   font-size: 15px;
-  padding: 5px;
 }
 
 .select {
